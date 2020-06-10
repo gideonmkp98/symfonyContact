@@ -28,10 +28,10 @@ class ContactController extends AbstractController
         dump($form->handleRequest($request));
         if($form->isSubmitted() && $form->isValid()){
             $contactFormData = $form->getData();
-
+            // Alle $contactFormData[''] werken niet komt error.
             $message = (new \Swift_Message('You Got Mail!'))
                 ->setFrom('test@gideonmkp.nl')
-                ->setTo('test@gideonmkp.nl')
+                ->setTo($this->getParameter('default_mail'))
                 ->setBody(
                     $this->render('emails/contact.html.twig', [
                         'data' => $contactFormData,
